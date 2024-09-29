@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="mb-4">Dashboard</h2>
+  <a href="{% url 'add_employee' %}" class="btn btn-primary mb-3">Add Employee</a>
+  <div class="list-group">
+    {% for employment in employments %}
+      <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <h5 class="mb-1">
+            <a href="{% url 'employee_details' employment.employee.id %}">{{ employment.employee.name }}</a>
+            - {{ employment.employee.profession }}
+          </h5>
+          <div>
+            <a href="{% url 'add_attendance' employment.id %}" class="btn btn-sm btn-outline-primary">Add Attendance</a>
+            <a href="{% url 'add_cash_handover' employment.id %}" class="btn btn-sm btn-outline-success">Add Cash Handover</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted">No employees added yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
